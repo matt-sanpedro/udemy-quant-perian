@@ -5,6 +5,7 @@ mylist = list(range(1,4))
 print(mylist)
 
 myarray = np.array(mylist)
+print(myarray)
 print(type(myarray))
 
 # nested list
@@ -38,6 +39,7 @@ print(np.linspace(0,10,21))
 
 # can call the len function on the numpy array
 print(type(np.linspace(0,10,21)))
+print('The length of the numpy array is: {}'.format(len(np.linspace(0,10,21))))
 
 # create an identity matrix with the eye function
 print(np.eye(5))
@@ -59,7 +61,7 @@ print('Calling the seed function')
 np.random.seed(42)
 store_set = np.random.rand(4)
 print(store_set)
-print(np.random.rand(4)) # no longer of the same set
+print(np.random.rand(4)) # no longer same as "store_set" but values are consistent
 print(store_set)
 
 # attribute and method calls
