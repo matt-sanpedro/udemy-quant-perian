@@ -13,7 +13,7 @@ print(np.sqrt(arr))
 
 # can also perform trigonometric functions
 print(np.sin(arr))
-print(np.log(arr))
+print(np.log(arr)) # this will throw warning for divide by zero encountered in log
 
 # sum and mean methods
 print(arr.sum())
@@ -25,6 +25,7 @@ print(arr.var())
 print(arr.std())
 
 arr2d = np.arange(0,25).reshape(5,5)
+print(arr2d)
 print(arr2d.shape)
 
 # perform sum across the rows
