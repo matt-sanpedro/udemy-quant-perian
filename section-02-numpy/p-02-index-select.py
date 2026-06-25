@@ -17,20 +17,28 @@ print(arr)
 # replicating this for a normal python list
 mylist = list(range(0,11))
 print(mylist[:5])
-mylist[:5] = [1000, 1000, 1000, 1000, 1000]
+# mylist[:5] = [1000, 1000, 1000, 1000, 1000]
+mylist[:5] = [1000] * 5
 print(mylist)
 
 # slicing an numpy array
+print('Array before slice: {}'.format(arr))
+# arr[:5] returns a view into the original array, not a copy.
+# modifying slice_of_arr therefore changes the original arr values.
 slice_of_arr = arr[:5]
 print(slice_of_arr)
+print('slice_of_arr shares memory with arr:', slice_of_arr.base is arr)
 slice_of_arr[:] = 99
 print(slice_of_arr)
+print('Array after slice: {}'.format(arr))
 
 # copy method on numpy arrays
 arr_copy = arr.copy()
-print(arr)
+print('Copy of array: {}'.format(arr))
 arr_copy[:] = 77
-print(arr_copy)
+print('Copy of array after 77 assignment: {}'.format(arr_copy))
+print('The original array: {}'.format(arr))
+
 
 # call the shape method to return row, col
 arr_2d = np.array([[5,10,15], [20,25,30], [35,40,45]])
@@ -43,6 +51,15 @@ print(arr_2d[0])
 # two ways to extract the indices
 print(arr_2d[1][1])
 print(arr_2d[1,1])
+
+"""
+Multidimensional Slicing: 
+The comma syntax allows you to easily slice multiple dimensions at once (e.g., arr_2d[0:2, 1:3])
+
+Fundamental syntax for a 2D NumPy array:
+array[row_start:row_stop:row_step, column_start:column_stop:column_step]
+"""
+print(arr_2d[:2,:2])
 
 # can also slice to extract subsection
 print(arr_2d[:2,1:])
