@@ -11,6 +11,7 @@ print(arr_ones)
 
 #### 4. Create an array of 10 fives
 arr_fives = np.full(10, 5.0)
+arr_fives = np.ones(10) * 5
 print(arr_fives)
 
 #### 5. Create an array of the integers from 10 to 50
@@ -22,7 +23,7 @@ arr_evens = np.arange(10,51,2)
 print(arr_evens)
 
 #### 7. Create a 3x3 matrix with values ranging from 0 to 8
-arr = np.arange(0,9)
+arr = np.arange(9)
 print(arr)
 arr = arr.reshape(3,3)
 print(arr)
@@ -51,6 +52,7 @@ array([[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1 ],
        [0.81, 0.82, 0.83, 0.84, 0.85, 0.86, 0.87, 0.88, 0.89, 0.9 ],
        [0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.  ]])
 """
+print((np.arange(1,101)/100).reshape(10,10))
 print(np.arange(0.01, 1.01, 0.01).reshape(10,10))
 
 #### 12. Create an array of 20 linearly spaced points between 0 and 1:
@@ -63,10 +65,13 @@ array([[12, 13, 14, 15],
        [17, 18, 19, 20],
        [22, 23, 24, 25]])
 """
-print(np.array(([12,13,14,15],[17,18,19,20],[22,23,24,25])))
+# initialized matrix
+mat = np.arange(1,26).reshape(5,5)
+print("Initial matrix:\n{}".format(mat))
+print("Sliced matrix:\n{}".format(mat[2:,1:]))
 
 #### 14. Write code that reproduces the output shown below.
-print(20)
+print(mat[3,4])
 
 #### 15. Write code that reproduces the output shown below.
 """
@@ -74,20 +79,37 @@ array([[ 2],
        [ 7],
        [12]])
 """
-print(np.array(([2],[7],[12])))
+print(mat[:3,1:2])
 
 #### 16. Write code that reproduces the output shown below.
 """
 array([21, 22, 23, 24, 25])
 """
-print(np.arange(21,26))
+print(mat[-1])
+print(mat[4])
 
 #### 17. Write code that reproduces the output shown below.
 """
 array([[16, 17, 18, 19, 20],
        [21, 22, 23, 24, 25]])
 """
-print(np.array(([16, 17, 18, 19, 20],[21, 22, 23, 24, 25])))
+print(mat[3:])
 
 #### 18. Get the sum of all the values in mat
-print(np.array(([16, 17, 18, 19, 20],[21, 22, 23, 24, 25])).sum())
+print(mat.sum())
+
+#### 19. Get the standard deviation of the values in mat
+print(mat.std())
+
+#### 20. Get the sum of all the columns in mat
+print(mat.sum(axis=0))
+
+"""
+Bonus Question
+
+We worked a lot with random data with numpy, but is there a way we can insure
+that we always get the same random numbers? [Click Here for a Hint]
+(https://www.google.com/search?q=numpy+random+seed&rlz=1C1CHBF_enUS747US747&oq=numpy+random+seed&aqs=chrome..69i57j69i60j0l4.2087j0j7&sourceid=chrome&ie=UTF-8)
+"""
+np.random.seed(101)
+print(np.random.rand(1))
