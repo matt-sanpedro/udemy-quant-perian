@@ -7,24 +7,24 @@ df = pd.read_csv(os.path.join(os.path.dirname(__file__), 'tips.csv'))
 print(df)
 
 # extract panda series from the dataframe
-print(df['total_bill'])
+print('Extract total_bill series:\n{}'.format(df['total_bill']))
 print(type(df['total_bill']))
 
 # extract multiple columns
 mycols = ['total_bill', 'tip']
-print(df[mycols])
+print('Extract columns with list argument:\n{}'.format(df[mycols]))
 print(type(df[mycols]))
 
 # addition operation between pandas series
-print(df['total_bill'] + df['tip'])
+print('Addition between two series:\n{}'.format(df['total_bill'] + df['tip']))
 
 # create a new tip percentage column
 df['tip_percentage'] = np.round(100 * df['tip'] / df['total_bill'], 2)
-print(df)
+print('Created a tip_percentage column:\n{}'.format(df[['total_bill', 'tip', 'tip_percentage']]))
 
 # referencing a column will overwrite 
 df['price_per_person'] = np.round(df['total_bill'] / df['size'], 2)
-print(df)
+print('Created a price_per_person column:\n{}'.format(df[['total_bill', 'size', 'price_per_person']]))
 
 # removing columns with the drop method
 # another option would be to use the inplace parameter but may deprecate soon 
