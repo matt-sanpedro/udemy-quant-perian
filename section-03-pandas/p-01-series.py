@@ -14,13 +14,13 @@ target_country = 'India'
 print('{} sales for quarter one: {}'.format(target_country, sales_q1[target_country]))
 
 # keys method
-print(sales_q1.keys())
+print('Keys from quarter one sales: {}'.format(sales_q1.keys()))
 
 # since pandas Series are build on top of numpy arrays, can call broadcast operations
 # demo: numpy array gets broadcasted
 print(np.array([1,2]) * 2)
 
-# if Series addition is performed, for labelled indices not present in both
+# if Series addition is performed, for labelled indices not present in both return NaN
 print(sales_q1 + sales_q2)
 
 # must call the built-in add method to define a fill_value
