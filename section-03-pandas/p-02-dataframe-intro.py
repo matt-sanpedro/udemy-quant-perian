@@ -17,9 +17,10 @@ print(mydata)
 myindex = ['CA', 'NY', 'AZ', 'TX']
 mycolumns = ['Jan', 'Feb', 'Mar']
 df = pd.DataFrame(data=mydata, index=myindex, columns=mycolumns)
-print(df)
+print('The contructed DataFrame:\n{}'.format(df))
 
 # info method
+print('The contructed DataFrame calling info method:')
 df.info()
 
 # read the csv file
