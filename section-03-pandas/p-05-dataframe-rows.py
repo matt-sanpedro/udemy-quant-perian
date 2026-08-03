@@ -92,11 +92,33 @@ def gen_unique_index(df: pd.DataFrame, index_col: str):
 print('Check Duplicate: {}'.format(check_duplicates(df, index_col)))
 
 # invoke the gen_unique_index function
-unique_df = gen_unique_index(df, index_col)
-print('Check Duplicate: {}'.format(check_duplicates(unique_df, index_col)))
-print(unique_df)
+df = gen_unique_index(df, index_col)
+print('Check Duplicate: {}'.format(check_duplicates(df, index_col)))
+print(df)
 
 # set index
 # df.set_index('City', verify_integrity=True)
-unique_df = unique_df.set_index(index_col, verify_integrity=True)
-print(unique_df)
+df = df.set_index(index_col, verify_integrity=True)
+print(df)
+
+# can reset the index
+# df = df.reset_index()
+# print(df)
+
+# extract single row - series returned
+print(df.iloc[0])
+print(df.loc['Sun2959'])
+
+# extract multiple rows
+print(df.iloc[0:4])
+print(df.loc[['Sun2959', 'Sun4458']])
+
+# remove a row
+df = df.drop('Sun2959')
+print(df.iloc[0:4])
+
+# add one to dataframe
+one_row = df.iloc[0]
+print(one_row)
+df = df._append(one_row)
+print(df.tail())
