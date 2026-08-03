@@ -6,6 +6,9 @@ import os
 df = pd.read_csv(os.path.join(os.path.dirname(__file__), 'tips.csv'))
 print(df.index)
 
+# this will fail due to the verify_integrity argument
+# df = df.set_index('Payment ID', verify_integrity=True)
+
 # # duplicate location
 # print(df.iat[118, 10])
 # print(df.iat[205, 10])
@@ -94,5 +97,6 @@ print('Check Duplicate: {}'.format(check_duplicates(unique_df, index_col)))
 print(unique_df)
 
 # set index
-unique_df = unique_df.set_index(index_col)
+# df.set_index('City', verify_integrity=True)
+unique_df = unique_df.set_index(index_col, verify_integrity=True)
 print(unique_df)
