@@ -4,7 +4,11 @@ import os
 
 # read the csv file
 df = pd.read_csv(os.path.join(os.path.dirname(__file__), 'tips.csv'))
-print(df)
+print(df.index)
+
+# # duplicate location
+# print(df.iat[118, 10])
+# print(df.iat[205, 10])
 
 """
 DUPLICATE CHECK
@@ -48,4 +52,47 @@ def check_duplicates(df: pd.DataFrame, index_col: str):
     has_nan = df[index_col].isna().any().any()
     return has_dup or has_nan
 
+def gen_unique_index(df: pd.DataFrame, index_col: str):
+    """
+    Generates a custom index if duplicates are found
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The source DataFrame to inspect.
+    index_col : str
+        The column name intended to become the future index.
+
+    Returns
+    -------
+    df : pd.DataFrame
+        The DataFrame with the "index_col" with all unique values 
+    """
+    has_dup = df[df[index_col].duplicated()].shape[0] > 0
+    if has_dup:
+        col_position = df.columns.get_loc(index_col)
+        print('Column position: {}'.format(col_position))
+        duplicate_rows = df[df[index_col].duplicated(keep=False)]
+        # print('Duplicate rows found:\n{}'.format((duplicate_rows['Payment ID'].index)))
+        # duplicate_rows[index_col] = duplicate_rows[index_col]
+        for i in range(duplicate_rows.shape[0]):
+            # print(i)
+            row_position = duplicate_rows['Payment ID'].index[i]
+            print(row_position)
+            print(duplicate_rows['Payment ID'][row_position])
+            # duplicate_rows['Payment ID'][i] = duplicate_rows['Payment ID'][duplicate_rows['Payment ID'].index[i]] + str(duplicate_rows['Payment ID'].index[i])
+            df.iat[row_position, col_position] = duplicate_rows['Payment ID'][row_position] + str(row_position)
+            print(df.iat[row_position, col_position])
+
+    return df
+
 print('Check Duplicate: {}'.format(check_duplicates(df, index_col)))
+
+# invoke the gen_unique_index function
+unique_df = gen_unique_index(df, index_col)
+print('Check Duplicate: {}'.format(check_duplicates(unique_df, index_col)))
+print(unique_df)
+
+# set index
+unique_df = unique_df.set_index(index_col)
+print(unique_df)
