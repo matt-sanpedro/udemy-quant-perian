@@ -46,6 +46,6 @@ def check_duplicates(df: pd.DataFrame, index_col: str):
     """
     has_dup = df[df[index_col].duplicated()].shape[0] > 0
     has_nan = df[index_col].isna().any().any()
-    return has_dup and has_nan
+    return has_dup or has_nan
 
 print('Check Duplicate: {}'.format(check_duplicates(df, index_col)))
