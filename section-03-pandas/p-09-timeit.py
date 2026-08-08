@@ -22,5 +22,5 @@ stmt_two = '''
 df['quality'] = np.vectorize(quality)(df['total_bill'], df['tip'])
 '''
 
-print('Time apply method:   {} s'.format(timeit.timeit(setup=setup, stmt=stmt_one, number=1000)))
-print('Time np vect method: {} s'.format(timeit.timeit(setup=setup, stmt=stmt_two, number=1000)))
+print('Time apply method:   {} s'.format(round(timeit.timeit(setup=setup, stmt=stmt_one, number=1000), ndigits=6)))
+print('Time np vect method: {} s'.format(round(timeit.timeit(setup=setup, stmt=stmt_two, number=1000), ndigits=6)))
