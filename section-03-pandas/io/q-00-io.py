@@ -24,3 +24,5 @@ df_fin = pd.read_csv(os.path.join(os.path.dirname(__file__), 'constituents-finan
 # List all columns of the two datasets. Additionally retrieve the datatype for each column**
 print(get_col_datatype(df_cons))
 print(get_col_datatype(df_fin))
+print(df_cons.dtypes)
+print(df_fin.dtypes)
