@@ -67,24 +67,34 @@ print('First 5 rows df_fin:\n{}'.format(df_fin.head(5)))
 print('\nNLARGEST\nData type: {}\nData:\n{}'.format(type(df_fin['Market Cap'].nlargest(10)), df_fin['Market Cap'].nlargest(10)))
 
 # Task: Return all information about the 10 largest companies according by market cap**
+# solution 1: nlargest
 print('\n10 largest companies according to market cap:\n{}'.format(df_fin.nlargest(10,'Market Cap')))
+# solution 2: sort_values
+print('\n10 largest companies according to market cap:\n{}'.format(df_fin.sort_values('Market Cap',ascending=False).head(10)))
 
 # Task: Drop GOOG**
-df_fin = df_fin.drop('GOOG')
+df_fin = df_fin.drop('GOOG',axis=0)
 print('\nDropped "GOOG" from df_fin:\n{}'.format(df_fin.nlargest(10,'Market Cap')))
 
 # Task: How many companies have a dividend yield > 4% ?**
+# solution 1: len
 print('Number of companies with Dividend yield > 4%: {}'.format(len(df_fin[df_fin['Dividend Yield'] > 4])))
+# solution 2: count
+print('Number of companies with Dividend yield > 4%:\n{}'.format(df_fin[df_fin['Dividend Yield'] > 4].count()))
 
 # Task: What is the mean Earnings per Share for all companies with a market cap > 1e+11**
-print('Mean earnings per share for market cap > 1e11: {}'.format(df_fin[df_fin['Market Cap'] > 1e11]['Earnings/Share'].mean()))
+print('\nMean earnings per share for market cap > 1e11: {}'.format(df_fin[df_fin['Market Cap'] > 1e11]['Earnings/Share'].mean()))
 
 # Task: How many companies have a positive earnings per shares ratio?**
 print('Number of companies with positive earning per shares ratio: {}'.format(len(df_fin[df_fin['Earnings/Share'] > 0].sort_values('Earnings/Share'))))
 
+# Task: How many companies have a positive price per earnings ratio? (take sum of booleans instead)**
+print('Number of companies with positive price per earnings ratio: {}'.format((df_fin['Price/Earnings'] > 0).sum()))
+
 # Task: Which company pays the highest dividend yield? What was its 52 week high?**
 div_max_idx = df_fin['Dividend Yield'].idxmax()
-print('Company with highest dividend yield: {}'.format(div_max_idx))
+div_max_name = df_cons['Symbol'] == div_max_idx
+print('Company with highest dividend yield:\n{}\n(ticker: {})'.format(df_cons[df_cons['Symbol'] == div_max_idx], div_max_idx))
 print('{} 52 week high is: {}'.format(div_max_idx, df_fin.loc[div_max_idx]['52 Week High']))
 
 # Task: Return the company with the largest spread between 52 weeks high and low**
@@ -92,7 +102,10 @@ diff_52 = (df_fin['52 Week High'] - df_fin['52 Week Low']).abs()
 print('Company with largest spread between 52 weeks high and low: {}'.format(diff_52.idxmax()))
 
 # Task: Return all companies whith a price between \\$ 50 and \\$ 100**
+# solution 1: dataframe conditionals
 print('Companies with share price between 50 and 100:\n{}'.format(df_fin[(df_fin['Price']>=50) & (df_fin['Price']<=100)].sort_values('Price')))
+# solution 2: between method
+print('Companies with share price between 50 and 100:\n{}'.format(df_fin[df_fin['Price'].between(50,100,inclusive='both')].sort_values('Price')))
 
 # Task: The market cap is really hard to read. Create a new column called "Market Cap in Billion" which shows the market cap in billions**
 df_fin['Market Cap in Billion'] = df_fin['Market Cap'] / 1_000_000_000
@@ -101,7 +114,7 @@ print('New column:\n{}'.format(df_fin[['Price', 'Market Cap', 'Market Cap in Bil
 # Task: Is there a correlation between the market cap and the Dividend Yield?**
 mcap_div_corr = df_fin['Market Cap'].corr(df_fin['Dividend Yield'])
 print('Correlation between "Market Cap" and "Dividend Yield": {}'.format(mcap_div_corr))
-print(df_fin.corr())
+print(df_fin[['Market Cap', 'Dividend Yield']].corr())
 
 # Task: Merge the financials dataframe with the constituents dataframe**
 df = pd.merge(left=df_cons,right=df_fin,how='outer',on='Symbol')
@@ -122,6 +135,10 @@ print('After "IT" replacement:\n{}'.format(df.loc[df['Sector'] == 'IT']))
 def add_dollar_sign(price):
     return f'${price:.2f}'
 print('Before adding dollar sign:\n{}'.format(df))
+# solution 1: vectorize function
 # df['Price'] = np.vectorize(add_dollar_sign)(df['Price'])
-df["Price"] = df["Price"].map("${:.2f}".format)
+# solution 2: map method
+# df["Price"] = df["Price"].map("${:.2f}".format)
+# solution 3: vectorize lambda
+df['Price'] = np.vectorize(lambda price: f"${price:.2f}")(df['Price'])
 print('After adding dollar sign:\n{}'.format(df))
