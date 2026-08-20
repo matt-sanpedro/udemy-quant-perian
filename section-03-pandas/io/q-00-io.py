@@ -49,6 +49,12 @@ print(get_col_datatype(df_cons))
 print(get_col_datatype(df_fin))
 print(df_cons.dtypes)
 print(df_fin.dtypes)
+print('\n================= INFO: df_cons =================')
+df_cons.info()
+print('================= INFO: df_fin =================')
+df_fin.info()
+print('================================================\n')
+
 
 # Print the first 5 rows of both datasets**
 print('First 5 rows df_cons:\n{}'.format(df_cons.head(5)))
@@ -93,7 +99,6 @@ print('Number of companies with positive price per earnings ratio: {}'.format((d
 
 # Task: Which company pays the highest dividend yield? What was its 52 week high?**
 div_max_idx = df_fin['Dividend Yield'].idxmax()
-div_max_name = df_cons['Symbol'] == div_max_idx
 print('Company with highest dividend yield:\n{}\n(ticker: {})'.format(df_cons[df_cons['Symbol'] == div_max_idx], div_max_idx))
 print('{} 52 week high is: {}'.format(div_max_idx, df_fin.loc[div_max_idx]['52 Week High']))
 
