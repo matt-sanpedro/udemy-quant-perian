@@ -92,14 +92,15 @@ print('Number of companies with Dividend yield > 4%:\n{}'.format(df_fin[df_fin['
 print('\nMean earnings per share for market cap > 1e11: {}'.format(df_fin[df_fin['Market Cap'] > 1e11]['Earnings/Share'].mean()))
 
 # Task: How many companies have a positive earnings per shares ratio?**
-print('Number of companies with positive earning per shares ratio: {}'.format(len(df_fin[df_fin['Earnings/Share'] > 0].sort_values('Earnings/Share'))))
+print('Number of companies with positive earning per shares ratio: {}'.format(len(df_fin[df_fin['Earnings/Share'] > 0])))
+print('List of companies with positive earning per shares ratio:\n{}'.format(df_fin[df_fin['Earnings/Share'] > 0].sort_values('Earnings/Share')))
 
 # Task: How many companies have a positive price per earnings ratio? (take sum of booleans instead)**
-print('Number of companies with positive price per earnings ratio: {}'.format((df_fin['Price/Earnings'] > 0).sum()))
+print('\nNumber of companies with positive price per earnings ratio: {}'.format((df_fin['Price/Earnings'] > 0).sum()))
 
 # Task: Which company pays the highest dividend yield? What was its 52 week high?**
 div_max_idx = df_fin['Dividend Yield'].idxmax()
-print('Company with highest dividend yield:\n{}\n(ticker: {})'.format(df_cons[df_cons['Symbol'] == div_max_idx], div_max_idx))
+print('\nCompany with highest dividend yield:\n{}\n(ticker: {})'.format(df_cons[df_cons['Symbol'] == div_max_idx], div_max_idx))
 print('{} 52 week high is: {}'.format(div_max_idx, df_fin.loc[div_max_idx]['52 Week High']))
 
 # Task: Return the company with the largest spread between 52 weeks high and low**
@@ -143,7 +144,7 @@ print('Before adding dollar sign:\n{}'.format(df))
 # solution 1: vectorize function
 # df['Price'] = np.vectorize(add_dollar_sign)(df['Price'])
 # solution 2: map method
-# df["Price"] = df["Price"].map("${:.2f}".format)
+# df["Price"] = df['Price'].map('${:.2f}'.format)
 # solution 3: vectorize lambda
-df['Price'] = np.vectorize(lambda price: f"${price:.2f}")(df['Price'])
+df['Price'] = np.vectorize(lambda price: f'${price:.2f}')(df['Price'])
 print('After adding dollar sign:\n{}'.format(df))
