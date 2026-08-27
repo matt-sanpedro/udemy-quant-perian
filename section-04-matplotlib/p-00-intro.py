@@ -27,7 +27,7 @@ plt.xlim(0,9)
 plt.ylim(0,15)
 
 # saving a plot
-plt.savefig('firstplot.png')
+plt.savefig('output/firstplot.png')
 
 # display the plot if running .py scripts
 plt.show()
