@@ -32,14 +32,23 @@ Energy and Mass.
 
 **TASK: Import what you need from Matplotlib to plot out graphs:**
 '''
+# SOLUTION 1: calling the axes object
 fig = plt.figure()
 ax = fig.add_axes([0.1,0.1,0.8,0.8])
 ax.plot(m,E,color='orange',lw=10)
 ax.set_xlabel('Mass in Grams')
 ax.set_ylabel('Energy in Joules')
+ax.set_xlim(0,10)
 plt.title('E=mc^2')
 plt.show()
 
+# SOLUTION 2: calling plt
+plt.plot(m,E,color='orange',lw=10)
+plt.xlabel('Mass in Grams')
+plt.ylabel('Energy in Joules')
+plt.xlim(0,10)
+plt.title('E=mc^2')
+plt.show()
 '''
 ### Part Three (BONUS)
 
