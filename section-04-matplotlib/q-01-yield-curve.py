@@ -59,12 +59,16 @@ figb, axb = plt.subplots()
 
 axb.plot(labels, july16_2007, lw=2, color='blue')
 axb.set_ylabel('2007', fontsize=18, color='blue')
+axb.spines['left'].set_color('blue')
+axb.spines['left'].set_linewidth(4)
 for label in axb.get_yticklabels():
     label.set_color('blue')
     
 ax2 = axb.twinx()
-ax2.plot(labels, july16_2020, lw=2, color="red")
-ax2.set_ylabel('2020', fontsize=18, color="red")
+ax2.plot(labels, july16_2020, lw=2, color='red')
+ax2.set_ylabel('2020', fontsize=18, color='red')
+ax2.spines['right'].set_color('red')
+ax2.spines['right'].set_linewidth(4)
 for label in ax2.get_yticklabels():
-    label.set_color("red")
+    label.set_color('red')
 plt.show()
