@@ -69,14 +69,19 @@ print('Max Adj Close of SPY per year:\n{}'.format(annual_max))
 
 Hint: Check out idxmin()
 '''
-print('Price of lowest adjusted closing: {}'.format(df['Adj Close']['2020-01-01':'2020-12-31'].min()))
-print('Day with lowest adjusted closing: {}'.format(df['Adj Close']['2020-01-01':'2020-12-31'].idxmin()))
+# print('Price of lowest adjusted closing: {}'.format(df['Adj Close']['2020-01-01':'2020-12-31'].min()))
+print('Price of lowest adjusted closing: {}'.format(df.loc['2020-01-01':'2020-12-31', 'Adj Close'].min()))
+# print('Day with lowest adjusted closing: {}'.format(df['Adj Close']['2020-01-01':'2020-12-31'].idxmin()))
+print('Day with lowest adjusted closing: {}'.format(df.loc['2020-01-01':'2020-12-31', 'Adj Close'].idxmin()))
 
 # **Task: In 2020, due to the uncertainty of the COVID-19 pandemic, the S&P500 index experienced a large drop in March of 2020. What was the highest price reached in 2020 *before* April 1st, 2020.**
-high_index = df['Adj Close']['2020-01-01':'2020-03-31'].idxmax()
-high_price = df['Adj Close']['2020-01-01':'2020-03-31'].max()
-print('Highest price of SPY before 2020-04-01: {}'.format(high_price))
-print('Timestamp: {}'.format(high_index))
+# high_index = df['Adj Close']['2020-01-01':'2020-03-31'].idxmax()
+high_index_eff = df.loc['2020-01-01':'2020-03-31', 'Adj Close'].idxmax()
+# high_price = df['Adj Close']['2020-01-01':'2020-03-31'].max()
+high_price_eff = df.loc['2020-01-01':'2020-03-31', 'Adj Close'].max()
+
+print('Highest price of SPY before 2020-04-01: {}'.format(high_price_eff))
+print('Timestamp: {}'.format(high_index_eff))
 '''
 **Task: Due to central bank and government actions, the S&P500 had one of the quickest recoveries in history after the crash of March 2020. How long did it take (in days) to reach the peak price the S&P 500 was at before the crash in March? In other words, based on your previous task of finding the peak price before the crash, how long did it take for the market to recover to its pre-crash price level?**
 
@@ -88,5 +93,5 @@ Learn: Consider using the .loc method for an efficient calculation
     - Performance: Using .gt() (greater than) and .idxmax() reads like a sentence and executes efficiently in __vectorized__ pandas operations (SEE: section-03-pandas/p-09-timeit.py).
 '''
 # recover_price = df['Adj Close']['2020-04-01':'2020-12-31'][df['Adj Close'] > high_price].index[0]
-recover_price = df.loc['2020-04-01':'2020-12-31', 'Adj Close'].gt(high_price).idxmax()
-print('Time Delta for SPY recovery: {}'.format(recover_price - high_index))
+recover_price = df.loc['2020-04-01':'2020-12-31', 'Adj Close'].gt(high_price_eff).idxmax()
+print('Time Delta for SPY recovery: {}'.format(recover_price - high_index_eff))
