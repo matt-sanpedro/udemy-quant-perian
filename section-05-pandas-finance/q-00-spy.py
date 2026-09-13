@@ -52,3 +52,35 @@ print('Gains from one share of SPY: {}'.format(gains))
 # **Task: What was the percent increase in value (based on Adj. Close price) from Jan 1st, 2000 to Jan 1st 2021?**
 percent_inc = gains/df['Adj Close']['2000-01-03'] * 100
 print('Percent increase from one share of SPY: {}'.format(percent_inc))
+
+# **Task: Return the 10 dates with the largest gain for the SPY.**
+df['Delta Adj Close'] = df['Adj Close'].pct_change(1)
+print('Largest gain for the SPY: {}'.format(df['Delta Adj Close'].nlargest(10))) 
+
+# **TASK: What were the 10 dates with the highest daily percent change from the previous day (either gain OR decrease).**
+print(df['Delta Adj Close'].abs().nlargest(10))
+
+# **Task: For each year in the dataset, find the Maximum Adj. Close price that SPY reached for that year.**
+annual_max = df['Adj Close'].resample('YE').max()
+print('Max Adj Close of SPY per year:\n{}'.format(annual_max))
+
+'''
+**Task: What was the day with the lowest adjusted closing price in 2020? (and what was this price)** 
+
+Hint: Check out idxmin()
+'''
+print('Price of lowest adjusted closing: {}'.format(df['Adj Close']['2020-01-01':'2020-12-31'].min()))
+print('Day with lowest adjusted closing: {}'.format(df['Adj Close']['2020-01-01':'2020-12-31'].idxmin()))
+
+# **Task: In 2020, due to the uncertainty of the COVID-19 pandemic, the S&P500 index experienced a large drop in March of 2020. What was the highest price reached in 2020 *before* April 1st, 2020.**
+high_index = df['Adj Close']['2020-01-01':'2020-03-31'].idxmax()
+high_price = df['Adj Close']['2020-01-01':'2020-03-31'].max()
+print('Highest price of SPY before 2020-04-01: {}'.format(high_price))
+print('Timestamp: {}'.format(high_index))
+'''
+**Task: Due to central bank and government actions, the S&P500 had one of the quickest recoveries in history after the crash of March 2020. How long did it take (in days) to reach the peak price the S&P 500 was at before the crash in March? In other words, based on your previous task of finding the peak price before the crash, how long did it take for the market to recover to its pre-crash price level?**
+
+Hint: You can subtract datetime timestamps from each other
+'''
+recover_price = df['Adj Close']['2020-04-01':'2020-12-31'][df['Adj Close'] > high_price].index[0]
+print('Time Delta for SPY recovery: {}'.format(recover_price - high_index))
