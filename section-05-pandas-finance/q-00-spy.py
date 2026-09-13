@@ -81,6 +81,12 @@ print('Timestamp: {}'.format(high_index))
 **Task: Due to central bank and government actions, the S&P500 had one of the quickest recoveries in history after the crash of March 2020. How long did it take (in days) to reach the peak price the S&P 500 was at before the crash in March? In other words, based on your previous task of finding the peak price before the crash, how long did it take for the market to recover to its pre-crash price level?**
 
 Hint: You can subtract datetime timestamps from each other
+
+Learn: Consider using the .loc method for an efficient calculation
+    - Avoids Chained Indexing: Your original code slices the series (['2020-04-01':'2020-12-31']) and then filters it with a boolean mask built from the entire series (df['Adj Close'] > high_price). While pandas handles this, mixing sizes like this can cause unexpected errors or performance warnings. .loc filters everything at once safely.
+
+    - Performance: Using .gt() (greater than) and .idxmax() reads like a sentence and executes efficiently in __vectorized__ pandas operations (SEE: section-03-pandas/p-09-timeit.py).
 '''
-recover_price = df['Adj Close']['2020-04-01':'2020-12-31'][df['Adj Close'] > high_price].index[0]
+# recover_price = df['Adj Close']['2020-04-01':'2020-12-31'][df['Adj Close'] > high_price].index[0]
+recover_price = df.loc['2020-04-01':'2020-12-31', 'Adj Close'].gt(high_price).idxmax()
 print('Time Delta for SPY recovery: {}'.format(recover_price - high_index))
