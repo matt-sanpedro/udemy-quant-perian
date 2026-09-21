@@ -29,5 +29,5 @@ inflation_df.plot()
 
 # yfinance ticker object
 aapl_ticker = yf.Ticker('AAPL')
-print('BALANCE SHEET:\n{}'.format(aapl_ticker.get_balance_sheet()))
-print('CORPORATE ACTIONS:\n{}'.format(aapl_ticker.actions))
+print('BALANCE SHEET:\n{}BALANCE SHEET TYPE: {}'.format(aapl_ticker.get_balance_sheet(), type(aapl_ticker.get_balance_sheet())))
+print('CORPORATE ACTIONS:\n{}CORPORATE ACTIONS TYPE: {}'.format(aapl_ticker.actions, type(aapl_ticker.actions)))
