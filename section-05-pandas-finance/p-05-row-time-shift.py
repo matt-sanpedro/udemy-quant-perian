@@ -23,7 +23,7 @@ print('Shift (1):\n{}'.format(df.shift(1)))
 print('Shift (-1):\n{}'.format(df.shift(-1)))
 
 # can also shift by larger periods of time
-print('Shift (1 month):\n{}'.format(df.shift(periods=1,freq='M')))
+print('Shift (1 month):\n{}'.format(df.shift(periods=1,freq='ME')))
 
 # what is the time difference from the previous day
 print(df['Adj Close'].diff(1))
