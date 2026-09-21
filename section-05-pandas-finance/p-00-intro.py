@@ -54,7 +54,7 @@ df_date_parse = df_date_parse.set_index('Date')
 print(df_date_parse)
 
 # resample method is like grouping
-print(df_date_parse.resample(rule='A').mean())
+print(df_date_parse.resample(rule='YE').mean())
 
 # once csv is parsed with dates, can also call datetime methods
 df_date_parse = pd.read_csv(os.path.join(os.path.dirname(__file__), 'SPY2000_2021.csv'),parse_dates=[0])
