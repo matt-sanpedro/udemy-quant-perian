@@ -30,6 +30,5 @@ ax = df['Close']['2018-01-01':'2018-03-01'].plot()
 ax.xaxis.set_major_locator(dates.MonthLocator())
 # FORMATTER: format actual time stamp to string
 ax.xaxis.set_major_formatter(dates.DateFormatter('%Y-%B'))
+plt.tight_layout()
 plt.show()
-
- 
