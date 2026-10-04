@@ -30,7 +30,21 @@ for i, df in enumerate(frames, start=1):
 # print('\nAAPL: {}'.format(frames[0]))
 # print('\nCOST: {}'.format(frames[1]))
 
-# compute daily returns
+'''
+compute daily returns
+
+Why .copy() is called
+copy() makes a separate DataFrame object instead of reusing the same underlying data as df.
+
+This matters because:
+
+df is a local DataFrame created from the CSV.
+They later do operations on it and then assign it into frames.
+Without .copy(), pandas may return a view or keep overlapping references, which can cause confusing side effects if you modify one DataFrame and unexpectedly affect another.
+In short, .copy() makes the cleaned version explicit and independent
+
+This is safer and clearer than relying on pandas’ internal memory behavior.
+'''
 for i, df in enumerate(frames):
     df['Daily Return'] = df['Adj Close'].pct_change(1)
     # Drop only rows where the new Daily Return is missing.
