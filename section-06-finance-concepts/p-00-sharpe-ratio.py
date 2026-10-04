@@ -36,8 +36,8 @@ for i, df in enumerate(frames):
     # Drop only rows where the new Daily Return is missing.
     # A single call is enough; `dropna()` on the whole frame is broader than needed.
     frames[i] = df.dropna(subset=['Daily Return']).copy()
-    sharp_ratio_annual = compute_sharpe_ratio(frames[i])
-    print(f'{csv_files[i]} - Sharpe Ratio: {sharp_ratio_annual}')
+    sharpe_ratio_annual = compute_sharpe_ratio(frames[i])
+    print(f'{csv_files[i]} - Sharpe Ratio: {sharpe_ratio_annual}')
 
 
 print('\nAAPL Daily Return: {}'.format(frames[0]['Daily Return']))
