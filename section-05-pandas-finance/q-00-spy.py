@@ -16,7 +16,7 @@ print(df.head(10))
 df.info()
 
 # **Task: Plot the Adjusted Closing price of the SP500, with the price on the y axis and the year on the x axis. Use Locator() and Formatter() techniques to configure the plot x axis so that you can see a tick for every year in the dataset (only showing the year number, not the full YYYY-MM-DD that is the default). Choose a reasonable figure size, set the dpi to 300 and save this plot in your working directory as sp500.png**
-plt.figure(figsize=(10,6),dpi=300)
+plt.figure(figsize=(8,6),dpi=200)
 plt.title('S&P 500: Adjusted Close Price')
 ax = df['Adj Close'].plot()
 ax.xaxis.set_major_locator(dates.YearLocator())
@@ -97,11 +97,15 @@ print('Day with lowest adjusted closing: {}'.format(df.loc['2020', 'Adj Close'].
 # **Task: In 2020, due to the uncertainty of the COVID-19 pandemic, the S&P500 index experienced a large drop in March of 2020. What was the highest price reached in 2020 *before* April 1st, 2020.**
 # high_index = df['Adj Close']['2020-01-01':'2020-03-31'].idxmax()
 high_index_eff = df.loc['2020-01-01':'2020-03-31', 'Adj Close'].idxmax()
+high_index_eff_opt = df.loc['2020', 'Adj Close'].idxmax()
 # high_price = df['Adj Close']['2020-01-01':'2020-03-31'].max()
 high_price_eff = df.loc['2020-01-01':'2020-03-31', 'Adj Close'].max()
+high_price_eff_opt = df.loc['2020', 'Adj Close'].max()
 
 print('Highest price of SPY before 2020-04-01: {}'.format(high_price_eff))
 print('Timestamp: {}'.format(high_index_eff))
+print('Highest price of SPY on 2020: {}'.format(high_price_eff_opt))
+print('Timestamp: {}'.format(high_index_eff_opt))
 '''
 **Task: Due to central bank and government actions, the S&P500 had one of the quickest recoveries in history after the crash of March 2020. How long did it take (in days) to reach the peak price the S&P 500 was at before the crash in March? In other words, based on your previous task of finding the peak price before the crash, how long did it take for the market to recover to its pre-crash price level?**
 
@@ -115,3 +119,5 @@ Learn: Consider using the .loc method for an efficient calculation
 # recover_price = df['Adj Close']['2020-04-01':'2020-12-31'][df['Adj Close'] > high_price].index[0]
 recover_price = df.loc['2020-04-01':'2020-12-31', 'Adj Close'].gt(high_price_eff).idxmax()
 print('Time Delta for SPY recovery: {}'.format(recover_price - high_index_eff))
+print('Recovery Price: {}'.format(df.loc[recover_price, 'Adj Close']))
+print('Peak Price before crash: {}'.format(df.loc[high_index_eff, 'Adj Close']))
