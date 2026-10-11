@@ -21,14 +21,8 @@ frames = []
 for csv_file in csv_files:
     csv_path = os.path.join(csv_dir, csv_file)
     df = pd.read_csv(csv_path, index_col='Date', parse_dates=True)
+    # df.info()
     frames.append(df)
-
-for i, df in enumerate(frames, start=1):
-    print(f'File {i}: {csv_files[i - 1]}')
-    print(df.head())
-
-# print('\nAAPL: {}'.format(frames[0]))
-# print('\nCOST: {}'.format(frames[1]))
 
 '''
 compute daily returns
@@ -50,9 +44,8 @@ for i, df in enumerate(frames):
     # Drop only rows where the new Daily Return is missing.
     # A single call is enough; `dropna()` on the whole frame is broader than needed.
     frames[i] = df.dropna(subset=['Daily Return']).copy()
+    print(f'File {i}: {csv_files[i]}')
+    print('DAILY RETURN\n{}'.format(frames[i]['Daily Return']))
+    print('ADJUSTED CLOSE\n{}'.format(frames[i]['Adj Close']))
     sharpe_ratio_annual = compute_sharpe_ratio(frames[i])
     print(f'{csv_files[i]} - Sharpe Ratio: {sharpe_ratio_annual}')
-
-
-print('\nAAPL Daily Return: {}'.format(frames[0]['Daily Return']))
-print('\nCOST Daily Return: {}'.format(frames[1]['Daily Return']))
